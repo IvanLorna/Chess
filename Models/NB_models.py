@@ -90,5 +90,4 @@ def trainNW3():
   model.compile(optimizer='RMSprop',
                 loss = tf.keras.losses.MeanSquaredError(),
                 metrics=['accuracy'])
-  return model.fit(TrainWX, TrainWY, epochs = 10)
-  
+  return model.fit(TrainWX, TrainWY, epochs = 7)
