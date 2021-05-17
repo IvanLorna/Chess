@@ -87,7 +87,7 @@ class Agent():
     curr_move = ""
     max = 0
     prediction = prediction.reshape(2,8,8)
-    for move in board.legal_moves:
+    for move in Board.legal_moves:
       curr = self.moveEval(prediction,move)
       if curr > max:
         curr_move = move

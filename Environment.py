@@ -29,7 +29,7 @@ class Environement():
         print("There is a stalemate")
         return self.history
       if self.Turn is "White":
-        move = White.MakeMove(self.board)
+        move = self.White.MakeMove(self.board)
         self.history.append(move)
         self.board.push_uci(move)
         if self.board.is_checkmate() is True:
@@ -37,7 +37,7 @@ class Environement():
           self.DecisiveMove = move
         self.Turn = "Black"
       else:
-        move = Black.MakeMove(self.board)
+        move = self.Black.MakeMove(self.board)
         self.history.append(move)
         self.board.push_uci(move)
         if self.board.is_checkmate() is True:
