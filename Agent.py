@@ -11,11 +11,13 @@ import os
 import pandas as pd
 import keras
 import chess
+import chess.engine
 import numpy as np
 from dataload import split_dims, squares_index
 import Model
 from tensorflow.keras import models, layers
 import tensorflow as tf
+from stockfish import Stockfish
 
 
 
@@ -69,7 +71,13 @@ class Agent():
       self.WhiteAgent = WhiteAgent(load = True)
     
     self.Side = isWhite
-  
+    
+    #load stockfish
+    if os.path.exists("/content/stockfish/stockfish") is True:
+      self.stockfish = Stockfish("/content/stockfish/stockfish")
+    else:
+      print("Content Missing at path '/content/stockfish/stockfish'. Unable to load.")
+
   def moveEval(self, pred, move):
     UCI = str(move)
     i = squares_index[UCI[0]]
@@ -78,6 +86,18 @@ class Agent():
     l = 8 - int(UCI[1])
     return pred[0][j][i]*pred[1][l][k]
 
+  #evaluate move made on board using stockfish
+  def voteEval(self,board,depth,move):
+    board.push_uci(move)
+    with chess.engine.SimplEngine.popen_uci('/content/stockfish/stockfish') as sf:
+      result =  sf.analyse(board, chess.engine.Limit(depth=depth))
+      score = result['score'].white().score()
+      return score
+
+  #determine stockfish's best move to make on current board
+  def getBestMoveSF(board):
+    self.stockfish.set_fen_position(board.fen())
+    return self.stockfish.get_best_move()
 
   def Decision(self, Board, model):
     X = []
