@@ -11,6 +11,7 @@ import os
 import chess
 import numpy as np
 from Agent import Agent
+import matplotlib.pyplot as plt
 
 class Environement():
   def __init__(self, White, Black):
@@ -20,13 +21,22 @@ class Environement():
     self.White = White
     self.Black = Black
     self.Turn = "White"
-    self.Winner = None
+    self.Winner = "None"
     self.history = []
+    self.R_White = 1000
+    self.R_Black = 1000
+    self.K = 25
+    self.Graph = None
 
   def Game(self):
     while self.board.is_checkmate() is False:
-      if self.board.is_stalemate() is True or self.numTurns > 1500:
+      if self.board.is_stalemate() is True or self.board.is_insufficient_material() is True:
         print("There is a stalemate")
+        self.Winner = "None"
+        return self.history
+      elif self.board.is_repetition():
+        print("Stalemate Due to Repetition")
+        self.Winner = "None"
         return self.history
       if self.Turn is "White":
         move = self.White.MakeMove(self.board)
@@ -45,6 +55,39 @@ class Environement():
           self.DecisiveMove = move
         self.Turn = "White"
       self.numTurns += 1
+      #print("Move:",move)
     print("The Winner is:",self.Winner)
     print("Decisive Move:",self.DecisiveMove)
     return self.history
+
+  def ELO(self, SW, SB):
+    EW = 1/(1+pow(10,(self.R_White-self.R_Black)/400))
+    EB = 1/(1+pow(10,(self.R_Black-self.R_White)/400))
+    self.R_White = self.R_White + self.K*(SW-EW)
+    self.R_Black = self.R_Black + self.K*(SB-EB)
+
+  def Training(self, Games):
+    ELO_White = []
+    ELO_Black = []
+    for i in range(Games):
+      self.board = chess.Board()
+      ELO_White.append(self.R_White)
+      ELO_Black.append(self.R_Black)
+      Epoch = self.Game()
+      if self.Winner is "White":
+        self.ELO(1,0)
+      elif self.Winner is "Black":
+        self.ELO(0,1)
+      else:
+        self.ELO(.5,.5)
+      
+    fig, ax = plt.subplots()
+    ax.plot(ELO_White, color = 'blue', label = 'ELO score for White')
+    ax.plot(ELO_Black, color = 'black', label = 'ELO score for Black')
+    plt.xlabel("Number of Games")
+    plt.ylabel("ELO Rating")
+    plt.legend()
+    plt.show()
+    self.Graph = ax
+
+

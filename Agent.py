@@ -7,30 +7,42 @@ Original file is located at
     https://colab.research.google.com/drive/19808imAEAdHna9zpJkeknI-Okk3-2cJ4
 """
 
+
 import os
 import pandas as pd
 import keras
 import chess
 import numpy as np
-from dataload import split_dims, squares_index
+from dataload import split_dims, squares_index, move_dims
 import Model
 from tensorflow.keras import models, layers
 import tensorflow as tf
-
-
+from stockfish import Stockfish
+from IPython.display import clear_output
 
 
 class WhiteAgent():
   def __init__(self, load = False, TrainWX = None, TrainWY = None):
     if load:
-      self.Models = [models.load_model("/content/White Weights/WModel1.h5"), models.load_model("/content/White Weights/WModel2.h5"),
-      models.load_model("/content/White Weights/WModel3.h5"),models.load_model("/content/White Weights/WModel4.h5"),
-      models.load_model("/content/White Weights/WModel5.h5"),models.load_model("/content/White Weights/WModel6.h5"),
-      models.load_model("/content/White Weights/WModel7.h5"),models.load_model("/content/White Weights/WModel8.h5"),
-      models.load_model("/content/White Weights/WModel9.h5"),models.load_model("/content/White Weights/WModel10.h5"),
-      models.load_model("/content/White Weights/WModel11.h5"),models.load_model("/content/White Weights/WModel12.h5"),
-      models.load_model("/content/White Weights/WModel13.h5"),models.load_model("/content/White Weights/WModel14.h5"),
-      models.load_model("/content/White Weights/WModel0.h5")]
+      if os.path.exists("/content/RWhite Weights") is False: 
+        os.mkdir('RWhite Weights')
+        self.Models = [models.load_model("/content/White Weights/WModel1.h5"), models.load_model("/content/White Weights/WModel2.h5"),
+        models.load_model("/content/White Weights/WModel3.h5"),models.load_model("/content/White Weights/WModel4.h5"),
+        models.load_model("/content/White Weights/WModel5.h5"),models.load_model("/content/White Weights/WModel6.h5"),
+        models.load_model("/content/White Weights/WModel7.h5"),models.load_model("/content/White Weights/WModel8.h5"),
+        models.load_model("/content/White Weights/WModel9.h5"),models.load_model("/content/White Weights/WModel10.h5"),
+        models.load_model("/content/White Weights/WModel11.h5"),models.load_model("/content/White Weights/WModel12.h5"),
+        models.load_model("/content/White Weights/WModel13.h5"),models.load_model("/content/White Weights/WModel14.h5"),
+        models.load_model("/content/White Weights/WModel0.h5")]
+      else:
+        self.Models = [models.load_model("/content/RWhite Weights/WModel1.h5"), models.load_model("/content/RWhite Weights/WModel2.h5"),
+        models.load_model("/content/RWhite Weights/WModel3.h5"),models.load_model("/content/RWhite Weights/WModel4.h5"),
+        models.load_model("/content/RWhite Weights/WModel5.h5"),models.load_model("/content/RWhite Weights/WModel6.h5"),
+        models.load_model("/content/RWhite Weights/WModel7.h5"),models.load_model("/content/RWhite Weights/WModel8.h5"),
+        models.load_model("/content/RWhite Weights/WModel9.h5"),models.load_model("/content/RWhite Weights/WModel10.h5"),
+        models.load_model("/content/RWhite Weights/WModel11.h5"),models.load_model("/content/RWhite Weights/WModel12.h5"),
+        models.load_model("/content/RWhite Weights/WModel13.h5"),models.load_model("/content/RWhite Weights/WModel14.h5"),
+        models.load_model("/content/RWhite Weights/WModel0.h5")]
 
     else:
       if os.path.exists('/content/games.csv'):
@@ -42,15 +54,25 @@ class WhiteAgent():
 class BlackAgent():
   def __init__(self, load = False, TrainBX = None, TrainBY = None):
     if load:
-      self.Models = [models.load_model("/content/Black Weights/BModel1.h5"), models.load_model("/content/Black Weights/BModel2.h5"),
-      models.load_model("/content/Black Weights/BModel3.h5"),models.load_model("/content/Black Weights/BModel4.h5"),
-      models.load_model("/content/Black Weights/BModel5.h5"),models.load_model("/content/Black Weights/BModel6.h5"),
-      models.load_model("/content/Black Weights/BModel7.h5"),models.load_model("/content/Black Weights/BModel8.h5"),
-      models.load_model("/content/Black Weights/BModel9.h5"),models.load_model("/content/Black Weights/BModel10.h5"),
-      models.load_model("/content/Black Weights/BModel11.h5"),models.load_model("/content/Black Weights/BModel12.h5"),
-      models.load_model("/content/Black Weights/BModel13.h5"),models.load_model("/content/Black Weights/BModel14.h5"),
-      models.load_model("/content/Black Weights/BModel0.h5")]
-
+      if os.path.exists("/content/RBlack Weights") is False: 
+        os.mkdir('RBlack Weights')
+        self.Models = [models.load_model("/content/Black Weights/BModel1.h5"), models.load_model("/content/Black Weights/BModel2.h5"),
+        models.load_model("/content/Black Weights/BModel3.h5"),models.load_model("/content/Black Weights/BModel4.h5"),
+        models.load_model("/content/Black Weights/BModel5.h5"),models.load_model("/content/Black Weights/BModel6.h5"),
+        models.load_model("/content/Black Weights/BModel7.h5"),models.load_model("/content/Black Weights/BModel8.h5"),
+        models.load_model("/content/Black Weights/BModel9.h5"),models.load_model("/content/Black Weights/BModel10.h5"),
+        models.load_model("/content/Black Weights/BModel11.h5"),models.load_model("/content/Black Weights/BModel12.h5"),
+        models.load_model("/content/Black Weights/BModel13.h5"),models.load_model("/content/Black Weights/BModel14.h5"),
+        models.load_model("/content/Black Weights/BModel0.h5")]
+      else:
+        self.Models = [models.load_model("/content/RBlack Weights/BModel1.h5"), models.load_model("/content/RBlack Weights/BModel2.h5"),
+        models.load_model("/content/RBlack Weights/BModel3.h5"),models.load_model("/content/RBlack Weights/BModel4.h5"),
+        models.load_model("/content/RBlack Weights/BModel5.h5"),models.load_model("/content/RBlack Weights/BModel6.h5"),
+        models.load_model("/content/RBlack Weights/BModel7.h5"),models.load_model("/content/RBlack Weights/BModel8.h5"),
+        models.load_model("/content/RBlack Weights/BModel9.h5"),models.load_model("/content/RBlack Weights/BModel10.h5"),
+        models.load_model("/content/RBlack Weights/BModel11.h5"),models.load_model("/content/RBlack Weights/BModel12.h5"),
+        models.load_model("/content/RBlack Weights/BModel13.h5"),models.load_model("/content/RBlack Weights/BModel14.h5"),
+        models.load_model("/content/RBlack Weights/BModel0.h5")]
     else:
       if os.path.exists('/content/games.csv'):
         self.Models = Model.TrainModels(TrainBX, TrainBY, isWhite = False)
@@ -62,13 +84,22 @@ class Agent():
   def __init__(self, isWhite = True):
     if os.path.exists("/content/White Weights") is False or os.path.exists("/content/Black Weights") is False:
       TrainWX, TrainWY, TrainBX, TrainBY = dataload.PreprocessData(*dataload.GetData())
-      self.BlackAgent = BlackAgent(load = False, TrainBX = TrainBX, TrainBY = TrainBY)
-      self.WhiteAgent = WhiteAgent(load = False, TrainWX = TrainWX, TrainWY = TrainWY) 
+      if isWhite:
+        self.WhiteAgent = WhiteAgent(load = False, TrainWX = TrainWX, TrainWY = TrainWY) 
+      else:
+        self.BlackAgent = BlackAgent(load = False, TrainBX = TrainBX, TrainBY = TrainBY)
     else:
-      self.BlackAgent = BlackAgent(load = True)
-      self.WhiteAgent = WhiteAgent(load = True)
+      if isWhite:
+        self.WhiteAgent = WhiteAgent(load = True)
+      else:
+        self.BlackAgent = BlackAgent(load = True)
     
     self.Side = isWhite
+    if os.path.exists("/content/stockfish/stockfish") is True:
+      self.stockfish = Stockfish("/content/stockfish/stockfish")
+    else:
+      print("Content Missing at path '/content/stockfish/stockfish'. Unable to load.")
+      self.stockfish = None
   
   def moveEval(self, pred, move):
     UCI = str(move)
@@ -77,6 +108,55 @@ class Agent():
     k = squares_index[UCI[2]]
     l = 8 - int(UCI[1])
     return pred[0][j][i]*pred[1][l][k]
+
+  def voteEval(self,board,depth,move):
+    TestBoard = chess.Board(board.fen())
+    TestBoard.push_uci(move)
+    with chess.engine.SimpleEngine.popen_uci('/content/stockfish/stockfish') as sf:
+      result =  sf.analyse(TestBoard, chess.engine.Limit(depth=depth))
+      if self.Side is True:
+        score = result['score'].white().score()
+      else:
+        score = result['score'].black().score()
+      return score
+
+  def getBestMoveSF(self, board):
+    self.stockfish.set_fen_position(board.fen())
+    return self.stockfish.get_best_move()
+
+  def ReinforceMove(self, board, Models, bestMove):
+    move = np.array([move_dims(bestMove).reshape(1,128) for i in range(10)])
+    BoardState = np.array([split_dims(board).reshape(8,8,14) for i in range(10)])
+    for i in range(15):
+      Models[i].fit(BoardState, move, epochs = 10, verbose=0)
+      if self.Side is True:
+        path = "WModel"
+        Models[i].save("/content/RWhite Weights/"+path+str(i)+".h5")
+      else:
+        path = "BModel"
+        Models[i].save("/content/RBlack Weights/"+path+str(i)+".h5")
+    self.reloadModels()
+    return Models
+
+  def reloadModels(self):
+    if self.Side is True:
+      self.WhiteAgent.Models = [models.load_model("/content/RWhite Weights/WModel1.h5"), models.load_model("/content/RWhite Weights/WModel2.h5"),
+        models.load_model("/content/RWhite Weights/WModel3.h5"),models.load_model("/content/RWhite Weights/WModel4.h5"),
+        models.load_model("/content/RWhite Weights/WModel5.h5"),models.load_model("/content/RWhite Weights/WModel6.h5"),
+        models.load_model("/content/RWhite Weights/WModel7.h5"),models.load_model("/content/RWhite Weights/WModel8.h5"),
+        models.load_model("/content/RWhite Weights/WModel9.h5"),models.load_model("/content/RWhite Weights/WModel10.h5"),
+        models.load_model("/content/RWhite Weights/WModel11.h5"),models.load_model("/content/RWhite Weights/WModel12.h5"),
+        models.load_model("/content/RWhite Weights/WModel13.h5"),models.load_model("/content/RWhite Weights/WModel14.h5"),
+        models.load_model("/content/RWhite Weights/WModel0.h5")]
+    else:
+      self.BlackAgent.Models = [models.load_model("/content/RBlack Weights/BModel1.h5"), models.load_model("/content/RBlack Weights/BModel2.h5"),
+        models.load_model("/content/RBlack Weights/BModel3.h5"),models.load_model("/content/RBlack Weights/BModel4.h5"),
+        models.load_model("/content/RBlack Weights/BModel5.h5"),models.load_model("/content/RBlack Weights/BModel6.h5"),
+        models.load_model("/content/RBlack Weights/BModel7.h5"),models.load_model("/content/RBlack Weights/BModel8.h5"),
+        models.load_model("/content/RBlack Weights/BModel9.h5"),models.load_model("/content/RBlack Weights/BModel10.h5"),
+        models.load_model("/content/RBlack Weights/BModel11.h5"),models.load_model("/content/RBlack Weights/BModel12.h5"),
+        models.load_model("/content/RBlack Weights/BModel13.h5"),models.load_model("/content/RBlack Weights/BModel14.h5"),
+        models.load_model("/content/RBlack Weights/BModel0.h5")]
 
 
   def Decision(self, Board, model):
@@ -89,7 +169,7 @@ class Agent():
     prediction = prediction.reshape(2,8,8)
     for move in Board.legal_moves:
       curr = self.moveEval(prediction,move)
-      if curr > max:
+      if curr >= max:
         curr_move = move
         max = curr
     return curr_move
@@ -105,11 +185,37 @@ class Agent():
     consensus = [str(self.Decision(board, Models[i])) for i in range(15)]
     Options = list(set(consensus))
     vote = []
+    Score = []
     for i in range(len(Options)):
       count = 0
       for j in range(len(consensus)):
         if consensus[j] == Options[i]:
           count += weights[j]
       vote.append(count)
+      Score.append(self.voteEval(board,1,Options[i]))
     Move = Options[np.argmax(vote)]
+    BestMove = self.getBestMoveSF(board)
+    Score = np.array(Score)
+    #print("Options:",Options)
+    #print("score:",Score)
+    #print("weights:",weights)
+    if None in Score is False:
+      total = Score/sum(abs(Score))
+      if len(total) > 1:
+        if self.Side is True:
+          for i in range(len(Options)):
+            for j in range(len(consensus)):
+              if consensus[j] == Options[i]:
+                self.WhiteAgent.weights[j] += total[i]
+          self.WhiteAgent.weights = 15*self.WhiteAgent.weights/sum(self.WhiteAgent.weights)
+        else:
+          for i in range(len(Options)):
+            for j in range(len(consensus)):
+              if consensus[j] == Options[i]:
+                self.BlackAgent.weights[j] += total[i]
+          self.BlackAgent.weights = 15*self.BlackAgent.weights/sum(self.BlackAgent.weights)
+    if self.Side is True:
+      self.WhiteAgent.Models = self.ReinforceMove(board,Models,BestMove)
+    else:
+      self.BlackAgent.Models = self.ReinforceMove(board,Models,BestMove)
     return Move
