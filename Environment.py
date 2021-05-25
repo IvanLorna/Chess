@@ -14,7 +14,7 @@ from Agent import Agent
 import matplotlib.pyplot as plt
 
 class Environement():
-  def __init__(self, White, Black):
+  def __init__(self, White, Black, R_W=1000, R_B=1000):
     self.board = chess.Board()
     self.numTurns = 0
     self.DecisiveMove = None
@@ -23,8 +23,8 @@ class Environement():
     self.Turn = "White"
     self.Winner = "None"
     self.history = []
-    self.R_White = 1000
-    self.R_Black = 1000
+    self.R_White = R_W
+    self.R_Black = R_B
     self.K = 25
     self.Graph = None
 
@@ -73,6 +73,7 @@ class Environement():
       self.board = chess.Board()
       ELO_White.append(self.R_White)
       ELO_Black.append(self.R_Black)
+      print("ELO for White:",self.R_White,"ELO for Black:",self.R_Black)
       Epoch = self.Game()
       if self.Winner is "White":
         self.ELO(1,0)
