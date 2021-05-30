@@ -1,0 +1,136 @@
+ELO for White: 1158.0162552408617 ELO for Black: 1000
+The Winner is: White
+Decisive Move: h5f7
+ELO for White: 1175.839287960761 ELO for Black: 982.1769672801006
+The Winner is: White
+Decisive Move: b2c1q
+ELO for White: 1194.6649065483898 ELO for Black: 963.3513486924719
+Stalemate Due to Repetition
+ELO for White: 1201.9423204546447 ELO for Black: 956.073934786217
+The Winner is: White
+Decisive Move: f3g3
+ELO for White: 1222.0574606895336 ELO for Black: 935.9587945513281
+Stalemate Due to Repetition
+ELO for White: 1230.519306818874 ELO for Black: 927.4969484219877
+The Winner is: White
+Decisive Move: d2d7
+ELO for White: 1251.8002342347017 ELO for Black: 906.2160210061597
+There is a stalemate
+ELO for White: 1261.2920736130673 ELO for Black: 896.7241816277942
+The Winner is: White
+Decisive Move: g8f7
+ELO for White: 1283.5613016655568 ELO for Black: 874.4549535753047
+Stalemate Due to Repetition
+ELO for White: 1293.8945833058717 ELO for Black: 864.1216719349898
+Stalemate Due to Repetition
+ELO for White: 1304.4520052903865 ELO for Black: 853.5642499504748
+The Winner is: Black
+Decisive Move: b8d7
+ELO for White: 1302.716320398306 ELO for Black: 855.2999348425554
+The Winner is: White
+Decisive Move: a1d1
+ELO for White: 1325.948080633203 ELO for Black: 832.0681746076583
+Stalemate Due to Repetition
+ELO for White: 1337.0719751368556 ELO for Black: 820.9442801040059
+The Winner is: Black
+Decisive Move: b8d7
+ELO for White: 1335.8532229688121 ELO for Black: 822.1630322720493
+The Winner is: White
+Decisive Move: a1d1
+ELO for White: 1359.6181002795704 ELO for Black: 798.3981549612912
+Stalemate Due to Repetition
+ELO for White: 1371.1673811527698 ELO for Black: 786.8488740880917
+Stalemate Due to Repetition
+ELO for White: 1382.8310717148784 ELO for Black: 775.1851835259832
+Stalemate Due to Repetition
+ELO for White: 1394.59676420607 ELO for Black: 763.4194910347916
+The Winner is: White
+Decisive Move: a6c6
+ELO for White: 1418.953086410796 ELO for Black: 739.0631688300656
+Stalemate Due to Repetition
+ELO for White: 1430.963724875354 ELO for Black: 727.0525303655076
+Stalemate Due to Repetition
+ELO for White: 1443.0364809628009 ELO for Black: 714.9797742780609
+Stalemate Due to Repetition
+ELO for White: 1455.163852271177 ELO for Black: 702.8524029696847
+Stalemate Due to Repetition
+ELO for White: 1467.3391511424193 ELO for Black: 690.6771040984423
+Stalemate Due to Repetition
+ELO for White: 1479.556438204464 ELO for Black: 678.4598170363977
+The Winner is: Black
+Decisive Move: d6d7
+ELO for White: 1479.310455743923 ELO for Black: 678.7057994969387
+The Winner is: White
+Decisive Move: c4d6
+ELO for White: 1504.0637825624071 ELO for Black: 653.9524726784546
+The Winner is: Black
+Decisive Move: d6d7
+ELO for White: 1503.8778227044645 ELO for Black: 654.1384325363972
+The Winner is: White
+Decisive Move: a1d1
+ELO for White: 1528.6914672616858 ELO for Black: 629.3247879791758
+The Winner is: Black
+Decisive Move: d6d7
+ELO for White: 1528.551160350315 ELO for Black: 629.4650948905467
+The Winner is: White
+Decisive Move: a1d1
+ELO for White: 1553.410627887065 ELO for Black: 604.6056273537969
+The Winner is: Black
+Decisive Move: d6d7
+ELO for White: 1553.3049248744949 ELO for Black: 604.7113303663668
+The Winner is: White
+Decisive Move: c3b5
+ELO for White: 1578.1990936931218 ELO for Black: 579.81716154774
+The Winner is: Black
+Decisive Move: d6d7
+ELO for White: 1578.1195508381988 ELO for Black: 579.8967044026631
+The Winner is: White
+Decisive Move: a1d1
+ELO for White: 1603.039935338959 ELO for Black: 554.976319901903
+The Winner is: Black
+Decisive Move: d6d7
+ELO for White: 1602.9801298840391 ELO for Black: 555.0361253568228
+The Winner is: White
+Decisive Move: a1d1
+ELO for White: 1627.9202833353552 ELO for Black: 530.0959719055068
+The Winner is: Black
+Decisive Move: d6d7
+ELO for White: 1627.8753469740122 ELO for Black: 530.1409082668496
+The Winner is: White
+Decisive Move: a1d1
+ELO for White: 1652.8303874006933 ELO for Black: 505.1858678401685
+The Winner is: Black
+Decisive Move: d6d7
+ELO for White: 1652.7966398654942 ELO for Black: 505.2196153753676
+The Winner is: White
+Decisive Move: a1d1
+ELO for White: 1677.7628792334315 ELO for Black: 480.2533760074303
+The Winner is: Black
+Decisive Move: d6d7
+ELO for White: 1677.737543941766 ELO for Black: 480.27871129909585
+The Winner is: White
+Decisive Move: a1d1
+ELO for White: 1702.7122012666327 ELO for Black: 455.3040539742291
+The Winner is: Black
+Decisive Move: d6d7
+ELO for White: 1702.6931865789804 ELO for Black: 455.32306866188145
+The Winner is: White
+Decisive Move: a1d1
+ELO for White: 1727.674167731445 ELO for Black: 430.34208750941673
+The Winner is: Black
+Decisive Move: d6d7
+ELO for White: 1727.6598997716296 ELO for Black: 430.35635546923214
+The Winner is: White
+Decisive Move: a1d1
+ELO for White: 1752.6456294692196 ELO for Black: 405.3706257716422
+The Winner is: Black
+Decisive Move: d6d7
+ELO for White: 1752.6349249663397 ELO for Black: 405.38133027452216
+The Winner is: White
+Decisive Move: a1d1
+ELO for White: 1777.6242191447188 ELO for Black: 380.39203609614293
+The Winner is: Black
+Decisive Move: d6d7
+ELO for White: 1777.6161890617634 ELO for Black: 380.4000661790983
+The Winner is: White
+Decisive Move: a1d1
