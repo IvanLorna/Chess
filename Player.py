@@ -1,3 +1,5 @@
+from IPython.display import clear_output
+
 class Player():
   def __init__(self, isWhite = True):
     self.isWhite = isWhite
@@ -5,6 +7,7 @@ class Player():
     pass
   
   def MakeMove(self,board):
+    clear_output()
     moveMade = False
     while moveMade is False:
       moves = 'Legal Moves to make:'
