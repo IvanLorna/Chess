@@ -1,24 +1,24 @@
 from IPython.display import clear_output
+import chess
 
 class Player():
   def __init__(self, isWhite = True):
     self.isWhite = isWhite
-    self.name = input("Please Enter Player Name: ")
     pass
   
   def MakeMove(self,board):
-    clear_output()
     moveMade = False
     while moveMade is False:
-      moves = 'Legal Moves to make:'
+      moves = '\nLegal Moves to make:'
       for i in board.legal_moves:
         moves  = moves + ' ' + str(i)
       print(board)
       print(moves)
-      Move = chess.Move.from_uci(input("please Enter a Legal Move: "))
-      if Move in board.legal_moves:
+      Move = input("please Enter a Legal Move: ")
+      if chess.Move.from_uci(Move) in board.legal_moves:
         moveMade = True
       else:
         print('"'+ str(Move) + '" is not a legal move.' )
+    clear_output()
     return Move
     
