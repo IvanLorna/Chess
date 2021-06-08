@@ -174,7 +174,7 @@ class Agent():
         max = curr
     return curr_move
 
-  def MakeMove(self, board):
+  def MakeMove(self, board, doReinforce = True, weigh_mods = True):
     if self.Side is True:
       Models = self.WhiteAgent.Models
       weights = self.WhiteAgent.weights
@@ -184,6 +184,9 @@ class Agent():
     tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
     consensus = [str(self.Decision(board, Models[i])) for i in range(15)]
     Options = list(set(consensus))
+    print('Consensus from Model votes:\n',consensus)
+    print('Unique moves:\n',Options)
+    
     vote = []
     Score = []
     for i in range(len(Options)):
@@ -193,13 +196,17 @@ class Agent():
           count += weights[j]
       vote.append(count)
       Score.append(self.voteEval(board,1,Options[i]))
+    print('voting scores on move options:\n',vote)
+    print('Evaluation of votes cast:\n',Score)
     Move = Options[np.argmax(vote)]
+    print('Selecting move of highest confidence: ',Move)
     BestMove = self.getBestMoveSF(board)
+    print('best move to make according to Stockfish: ',BestMove,'\n')
     Score = np.array(Score)
     #print("Options:",Options)
     #print("score:",Score)
     #print("weights:",weights)
-    if None in Score is False:
+    if None in Score is False and weigh_mods is True:
       total = Score/sum(abs(Score))
       if len(total) > 1:
         if self.Side is True:
@@ -214,8 +221,9 @@ class Agent():
               if consensus[j] == Options[i]:
                 self.BlackAgent.weights[j] += total[i]
           self.BlackAgent.weights = 15*self.BlackAgent.weights/sum(self.BlackAgent.weights)
-    if self.Side is True:
-      self.WhiteAgent.Models = self.ReinforceMove(board,Models,BestMove)
-    else:
-      self.BlackAgent.Models = self.ReinforceMove(board,Models,BestMove)
+    if doReinforce is True:
+		if self.Side is True:
+		  self.WhiteAgent.Models = self.ReinforceMove(board,Models,BestMove)
+		else:
+		  self.BlackAgent.Models = self.ReinforceMove(board,Models,BestMove)
     return Move
