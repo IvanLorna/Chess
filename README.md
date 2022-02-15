@@ -1,6 +1,10 @@
-# Chess
-CS228 deep learning final project    <br /><br />
+# Chess AI
+Utilizing Tensorflow and Stockfish, we train a Chess AI specific to Black and White through use of neural networks on a dataset of past games. We then apply reinforcement learning methods to improve its performance against Greedy, Minmax, Stockfish AI, and against itself. We discussed which color learns better against different opponents, the rate of learning against multiple difficulties and why that may be the case. We use a consensus of 15 unique deep learning models and utilize Stockfish’s evaluation on the best move and on different moves.  <br />
 
+## Project Report
+[project_report.pdf](https://drive.google.com/file/d/1EcXG61i0WE7jQFex4QPA6nCSXAizljgR/view?usp=sharing)
+
+## File Index
 **games.csv** is the dataset for the initial training  
 **dataload.py** will load the data from the Games into Board states and reactions  
 **Model.py** Takes the data from dataload.py and creates the initial models in Folder White Weights and Folder Black Weights  
